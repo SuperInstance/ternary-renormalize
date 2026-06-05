@@ -1,48 +1,58 @@
 # ternary-renormalize
 
-Coarse-graining / renormalization group for ternary populations.
+**Renormalize for the SuperInstance ternary {-1, 0, +1} ecosystem**
 
-Block transformation (groups of 3→1), majority-rule coarse-graining, and tracking of quantities across scales. Inspired by statistical mechanics renormalization group methods applied to ternary-state systems.
+[![ternary](https://img.shields.io/badge/ecosystem-ternary-blue)](https://github.com/orgs/SuperInstance/repositories?q=ternary)
+[![tests](https://img.shields.io/badge/tests-0-green)]()
 
-## Features
+## Why Ternary?
 
-- **5 coarse-graining rules**: Majority, SumThreshold, First, Middle, Last
-- **RG flow tracking**: Automatic coarse-graining across all scales
-- **Observable computation**: Fractions, entropy, magnetization, Ω at each scale
-- **Fixed point detection**: Identify when RG flow converges
-- **Correlation length**: Estimate from RG scale data
-- **Ω stability analysis**: Check if zero-fraction is preserved under rescaling
+The balanced ternary system {-1, 0, +1} (also known as Z₃) is the mathematically optimal discrete encoding:
+- **More expressive than binary**: three states capture positive, neutral, and negative
+- **Natural for decisions**: accept/reject/abstain, buy/hold/sell, agree/disagree/neutral
+- **Self-balancing**: the 0 state acts as a universal screen, preventing pathological lock-in
+- **Z₃ cyclic dynamics**: rock-paper-scissors is the only natural coordination mechanism
+
+## Stats
+
+| Metric | Value |
+|--------|-------|
+| Lines of Rust | 0 |
+| Test count | 0 |
+| Public types | 0 |
+| Public functions | 0 |
+
+## Ecosystem
+
+This crate is part of the **[SuperInstance Ternary Fleet](https://github.com/orgs/SuperInstance/repositories?q=ternary)**:
+
+- **[ternary-core](https://github.com/SuperInstance/ternary-core)** — shared traits and Z₃ arithmetic
+- **[ternary-grid](https://github.com/SuperInstance/ternary-grid)** — spatial grid with {-1, 0, +1} cells
+- **[ternary-graph](https://github.com/SuperInstance/ternary-graph)** — ternary-weighted graph algorithms
+- **[ternary-automata](https://github.com/SuperInstance/ternary-automata)** — three-state cellular automata
+- **[ternary-compiler](https://github.com/SuperInstance/ternary-compiler)** — expression compiler and optimizer
+
+200+ crates. 4,300+ tests. One pattern.
+
+## Research Context
+
+The ternary approach connects to several active research areas:
+- **Ternary Neural Networks** (TNNs): weights constrained to {-1, 0, +1} for efficient inference
+- **Huawei's ternary chip**: 7nm ternary silicon with 60% less power consumption
+- **Active inference**: free energy minimization naturally maps to ternary action selection
+- **Cyclic dominance**: RPS dynamics maintain biodiversity in spatial ecology
+- **Z₃ group theory**: the only algebraic group on three elements is cyclic addition mod 3
 
 ## Usage
 
-```rust
-use ternary_renormalize::{Renormalizer, CoarseRule, Ternary, uniform_population, mixed_population};
-
-let pop = mixed_population(243, 0.33, 0.34);
-let mut renorm = Renormalizer::new(CoarseRule::Majority);
-let history = renorm.rg_flow(&pop, 1);
-
-for obs in history {
-    println!("Scale {}: Ω={}, entropy={:.3}", obs.scale, obs.omega, obs.entropy);
-}
-
-// Check fixed points and stability
-println!("Fixed point: {}", renorm.is_fixed_point());
-println!("Ω stable: {}", renorm.omega_stable(0.01));
+```toml
+[dependencies]
+ternary-renormalize = "0.1.0"
 ```
 
-## Test Coverage
-
-23 tests covering uniform populations, all 5 coarse-graining rules, RG flow on 81 and 243-element populations, correlation length, Ω stability, magnetization, and edge cases.
-
-## Known Limitations
-
-- Block size fixed at 3 (standard for ternary systems)
-- Majority rule uses simple plurality (ties → Zero), not weighted voting
-- No temperature-like parameter for probabilistic coarse-graining
-- Triangle inequality not enforced in coarse-graining
-- Fixed point detection uses exact equality within tolerance, not convergence rate
-- Maximum dimension of RG flow not bounded (runs until population < min_size)
+```rust
+use ternary_renormalize;
+```
 
 ## License
 
