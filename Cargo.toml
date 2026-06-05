@@ -1,0 +1,11 @@
+[package]
+name = "ternary-renormalize"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Coarse-graining / renormalization group for ternary populations"
+repository = "https://github.com/SuperInstance/ternary-renormalize"
+
+[lib]
+
+[dependencies]
